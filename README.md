@@ -1,6 +1,7 @@
-# linked-list
+# Linked List
+![](https://github.com/ahlechandre/linked-list/blob/master/img/img.png)
 
-Basic algorithm of a linked list in c language
+#### Basic algorithm of a linked list in c language
 
 # License
 
