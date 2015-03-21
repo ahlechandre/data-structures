@@ -1,8 +1,6 @@
 /*
-
-MIT License © 2015 Alexandre Thebaldi
-github.com/ahlechandre
-
+ * MIT License © 2015 Alexandre Thebaldi
+ * github.com/ahlechandre
 */
 
 #include <stdio.h>
@@ -270,6 +268,19 @@ void showList( node *list )
         printf("\naddress: %d | value: %d | pointer: %d\n", indexList, indexList->value, indexList->next);
         indexList = indexList->next;
     }
+
+    /*
+     * recursive version
+
+    if ( isEmptyList(list) )
+    {
+        return;
+    }
+
+    printf("\naddress: %d | value: %d | pointer: %d\n", list, list->value, list->next);
+
+    showList( list->next );
+    */
 
 }
 
