@@ -1,6 +1,13 @@
 /*
+<<<<<<< HEAD
  * MIT License © 2015 Alexandre Thebaldi
  * github.com/ahlechandre
+=======
+
+MIT License © 2015 Alexandre Thebaldi
+github.com/ahlechandre
+
+>>>>>>> 33554f58abd2f09f1aa74f11d9de24a977702132
 */
 
 #include <stdio.h>
@@ -269,6 +276,7 @@ void showList( node *list )
         indexList = indexList->next;
     }
 
+<<<<<<< HEAD
     /*
      * recursive version
 
@@ -282,6 +290,8 @@ void showList( node *list )
     showList( list->next );
     */
 
+=======
+>>>>>>> 33554f58abd2f09f1aa74f11d9de24a977702132
 }
 
 int isEmptyList( node *list )
