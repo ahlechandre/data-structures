@@ -1,9 +1,12 @@
-# Linked List
+# Algorithms and data structures
 ![](https://github.com/ahlechandre/linked-list/blob/master/img/img.png)
 
-#### Basic algorithm of a linked list in c language
+#### My testing of algorithms and data structures in C
 
-## Basic features
+# Dat Structures
+
+## Linked list 
+#### Features
 
 * insert nodes at the beginning or end
 * show all nodes
@@ -11,6 +14,14 @@
 * search by node
 * free list (remove all nodes)
 
-# License
+## Stack
+### Features
 
+* insert nodes 
+* show all nodes
+* remove node
+* search by node
+* free stack (remove all nodes)
+
+# License
 MIT License © 2015 Alexandre Thebaldi
