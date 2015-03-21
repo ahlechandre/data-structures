@@ -3,10 +3,10 @@
 
 #### My testing of algorithms and data structures in C
 
-# Dat Structures
+## Data Structures
 
-## Linked list 
-#### Features
+### Linked list 
+> Features
 
 * insert nodes at the beginning or end
 * show all nodes
@@ -14,8 +14,8 @@
 * search by node
 * free list (remove all nodes)
 
-## Stack
-### Features
+### Stack
+> Features
 
 * insert nodes 
 * show all nodes
