@@ -5,23 +5,9 @@
 
 ## Data Structures
 
-### Linked list 
-> Features
-
-* insert nodes at the beginning or end
-* show all nodes
-* remove node
-* search by node
-* free list (remove all nodes)
-
-### Stack
-> Features
-
-* insert nodes 
-* show all nodes
-* remove node
-* search by node
-* free stack (remove all nodes)
+#### Dynamic
+* Linked list
+* Stack
 
 # License
 MIT License © 2015 Alexandre Thebaldi
