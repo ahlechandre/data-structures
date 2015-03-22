@@ -1,3 +1,7 @@
+/*
+ * MIT License © 2015 Alexandre Thebaldi
+ * github.com/ahlechandre
+*/
 #include <stdio.h>
 
 struct Node
