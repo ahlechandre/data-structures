@@ -9,5 +9,8 @@
 * Linked list
 * Stack
 
+### Static
+* Queue
+
 # License
 MIT License © 2015 Alexandre Thebaldi
