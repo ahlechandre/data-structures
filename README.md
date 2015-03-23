@@ -11,6 +11,7 @@
 
 ### Static
 * Queue
+* Stack
 
 # License
 MIT License © 2015 Alexandre Thebaldi
