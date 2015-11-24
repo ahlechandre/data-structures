@@ -330,3 +330,100 @@ void showSuccess( int id )
         }
     }
 }
+
+// TREE
+
+#include <stdio.h>
+
+struct Node {
+    int content;
+    struct Node *left;
+    struct Node *right;
+};
+
+typedef struct Node node;
+
+node *insertBb( node *, int );
+
+int main(void)
+{
+    node *tree = NULL;
+    int value, menu;
+
+    do
+    {
+        printf("\nEntre com o valor: \n");
+        scanf( "%i", &value );
+        tree = insertBb( tree, value );
+        printf("\nDeseja continuar? N- 0 S- 1\n");
+        scanf( "%i", &menu );
+    } while( menu != 0 );
+
+    printf("\n ====== RED ===== \n");
+    red( tree );
+
+    printf("\n ====== ERD ===== \n");
+    erd( tree );
+
+    printf("\n ====== EDR ===== \n");
+    edr( tree );
+
+    return 0;
+}
+
+node *insertBb( node *tree, int value )
+{
+    if ( tree == NULL )
+    {
+        tree = ( node * ) malloc( sizeof( node ) );
+        tree->content = value;
+        tree->left = NULL;
+        tree->right = NULL;
+    }
+    else
+    {
+        node *newNode;
+        if ( value < tree->content )
+        {
+            newNode = insertBb( tree->left, value );
+            tree->left = newNode;
+        }
+        else
+        {
+            newNode = insertBb( tree->right, value );
+            tree->right = newNode;
+        }
+    }
+    return tree;
+}
+
+void red ( node *tree )
+{
+    if ( tree != NULL )
+    {
+        printf( "\nContent = %d \n", tree->content );
+        red( tree->left );
+        red( tree->right );
+    }
+}
+
+void erd ( node *tree )
+{
+    if ( tree != NULL )
+    {
+        erd( tree->left );
+        printf( "\nContent = %d \n", tree->content );
+        erd( tree->right );
+    }
+}
+
+void edr ( node *tree )
+{
+    if ( tree != NULL )
+    {
+        edr( tree->left );
+        edr( tree->right );
+        printf( "\nContent = %d \n", tree->content );
+    }
+}
+
