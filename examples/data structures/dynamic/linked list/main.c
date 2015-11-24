@@ -330,9 +330,6 @@ void showSuccess( int id )
         }
     }
 }
-
-// TREE
-
 #include <stdio.h>
 
 struct Node {
@@ -344,6 +341,7 @@ struct Node {
 typedef struct Node node;
 
 node *insertBb( node *, int );
+node *insert( node *, int );
 
 int main(void)
 {
@@ -354,7 +352,7 @@ int main(void)
     {
         printf("\nEntre com o valor: \n");
         scanf( "%i", &value );
-        tree = insertBb( tree, value );
+        tree = insert( tree, value );
         printf("\nDeseja continuar? N- 0 S- 1\n");
         scanf( "%i", &menu );
     } while( menu != 0 );
@@ -369,6 +367,34 @@ int main(void)
     edr( tree );
 
     return 0;
+}
+
+node *insert( node *tree, int value )
+{
+    if ( tree == NULL )
+    {
+        tree = ( node * ) malloc( sizeof( node ) );
+        tree->content = value;
+        tree->left = NULL;
+        tree->right = NULL;
+    }
+    else
+    {
+        int subLeft = 0, subRight = 0;
+
+        nodeCount( tree->left, &subLeft );
+        nodeCount( tree->right, &subRight );
+
+        if ( subLeft <= subRight )
+        {
+            tree->left = insert( tree->left, value );
+        }
+        else
+        {
+            tree->right = insert( tree->right, value );
+        }
+    }
+    return tree;
 }
 
 node *insertBb( node *tree, int value )
@@ -395,6 +421,16 @@ node *insertBb( node *tree, int value )
         }
     }
     return tree;
+}
+
+void nodeCount( node *tree, int *count )
+{
+    if ( tree != NULL )
+    {
+        *count += 1;
+        nodeCount( tree->left, count );
+        nodeCount( tree->right, count );
+    }
 }
 
 void red ( node *tree )
