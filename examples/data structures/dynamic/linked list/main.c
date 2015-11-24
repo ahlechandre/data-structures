@@ -330,6 +330,9 @@ void showSuccess( int id )
         }
     }
 }
+
+// TREEE
+
 #include <stdio.h>
 
 struct Node {
@@ -438,6 +441,24 @@ void red ( node *tree )
     if ( tree != NULL )
     {
         printf( "\nContent = %d \n", tree->content );
+
+        if ( tree->left == NULL )
+        {
+            printf("\nContentLeft = NULL\n");
+        }
+        else
+        {
+            printf( "\nContentLeft = %d \n", tree->left->content );
+        }
+
+        if ( tree->right == NULL )
+        {
+            printf("\nContentRight = NULL\n");
+        }
+        else
+        {
+            printf( "\nContentRight = %d \n", tree->right->content );
+        }
         red( tree->left );
         red( tree->right );
     }
