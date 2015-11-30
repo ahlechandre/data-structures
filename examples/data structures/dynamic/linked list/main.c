@@ -484,3 +484,341 @@ void edr ( node *tree )
     }
 }
 
+// other tree
+
+#include <stdio.h>
+
+struct N {
+    int content;
+    struct N *left;
+    struct N *right;
+};
+
+typedef struct N node;
+
+// operations
+node *insert( node *tree, int value );
+void RED( node *tree );
+void EDR( node *tree );
+void ERD( node *tree );
+node *search( node *tree, int value );
+void freeAll( node *tree );
+int getHeight( node *root );
+
+// helpers
+node *init();
+void showNode( node *treeNode );
+void countNodes( node *tree, int *count );
+void log( int option );
+
+int main(void)
+{
+    int resp = 0, option = 0;
+    node *tree;
+    tree = init();
+
+    do
+    {
+        printf("\n============ MENU ============\n");
+        printf("\n0 - sair\n");
+        printf("\n1 - inserir\n");
+        printf("\n2 - buscar\n");
+        printf("\n3 - remover\n");
+        printf("\n4 - profundidade\n");
+        printf("\n5 - altura\n");
+        printf("\n6 - mostrar em pre-ordem (RED)\n");
+        printf("\n7 - mostrar em pos-ordem (EDR)\n");
+        printf("\n8 - mostrar em ordem simetrica (ERD)\n");
+        printf("\n9 - remover todos\n\n");
+
+        scanf("%i", &option);
+
+        switch ( option ) {
+        case 1: {
+            // inserir
+            int value;
+
+            printf("\n====== Inserir ======\n");
+            printf("\nEntre com um valor (inteiro): \n");
+            scanf("%i", &value);
+
+            tree = insert( tree, value );
+
+            break;
+        }
+        case 2: {
+            // buscar
+            int value;
+
+            node *found;
+
+            printf("\n====== Buscar ======\n");
+            printf("\nEntre com o conteudo (inteiro): \n");
+            scanf("%i", &value);
+
+            found = search( tree, value );
+
+            showNode( found );
+            break;
+        }
+        case 3: {
+            // remover
+            break;
+        }
+        case 4: {
+            // profundidade
+            break;
+        }
+        case 5: {
+            // altura
+            int option, height;
+
+            printf("\n====== Altura ======\n");
+            printf("\nAltura da arvore ou deseja buscar um elemento(no)? \n\n1 - Altura da arvore\n\n2 - Buscar elemento\n\n");
+
+            scanf("%i", &option);
+            if ( option == 1 )
+            {
+                // altura da arvore
+                height = getHeight( tree );
+            }
+            else if ( option == 2 )
+            {
+                // buscar elemento
+                int value;
+
+                node *element;
+
+                printf("\n====== Buscar ======\n");
+                printf("\nEntre com o conteudo (inteiro): \n");
+                scanf("%i", &value);
+
+                element = search( tree, value );
+
+                height = getHeight( element );
+            }
+
+            printf("\nAltura = %i\n", height);
+            break;
+        }
+        case 6: {
+            // mostrar em pre-ordem
+            printf("\n====== Mostrar em pre-ordem ======\n");
+            RED( tree );
+            break;
+        }
+        case 7: {
+            // mostrar em pos-ordem
+            printf("\n====== Mostrar em pos-ordem ======\n");
+            EDR( tree );
+            break;
+        }
+        case 8: {
+            // mostrar em ordem simetrica
+            printf("\n====== Mostrar em ordem simetrica ======\n");
+            ERD( tree );
+            break;
+        }
+        case 9: {
+            // remover todos
+            int sure;
+
+            printf("\n====== Remover todos ======\n");
+            printf("\n\n TEM CERTEZA? \n\n1 - SIM \n\n0 - NAO\n\n");
+
+            scanf("%i", &sure);
+
+            if ( sure == 1 )
+            {
+                freeAll( tree );
+                tree = init();
+            }
+            break;
+        }
+        case 0: {
+            // sair
+            exit(0);
+        }
+        }
+        printf("\nDeseja continuar? \n\n1 - SIM \n\n0 - NAO\n\n");
+        scanf("%i", &resp);
+    } while ( resp != 0 );
+
+    return 0;
+}
+
+// operations
+
+node *insert( node *tree, int value )
+{
+    if ( tree == NULL )
+    {
+        int sizeOfTreeNode = sizeof( node );
+
+        tree = ( node * ) malloc( sizeOfTreeNode );
+
+        tree->content = value;
+        tree->left = NULL;
+        tree->right = NULL;
+    }
+    else
+    {
+        int leftSide = 0, rightSide = 0;
+
+        countNodes( tree->left, &leftSide );
+        countNodes( tree->right, &rightSide );
+
+        if ( leftSide <= rightSide )
+        {
+            tree->left = insert( tree->left, value );
+        }
+        else
+        {
+            tree->right = insert( tree->right, value );
+        }
+    }
+
+    return tree;
+}
+
+node *search( node *tree, int value )
+{
+    if ( tree != NULL )
+    {
+        if ( tree->content == value )
+        {
+            return tree;
+        }
+
+        node *find;
+
+        find = search( tree->left, value );
+
+        if ( find == NULL )
+        {
+            find = search( tree->right, value );
+        }
+
+        return find;
+    }
+
+    return NULL;
+}
+
+void RED( node *tree )
+{
+    if ( tree != NULL )
+    {
+        showNode( tree );
+        RED( tree->left );
+        RED( tree->right );
+    }
+}
+
+void EDR( node *tree )
+{
+    if ( tree != NULL )
+    {
+        EDR( tree->left );
+        EDR( tree->right );
+        showNode( tree );
+    }
+}
+
+void ERD( node *tree )
+{
+    if ( tree != NULL )
+    {
+        ERD( tree->left );
+        showNode( tree );
+        ERD( tree->right );
+    }
+}
+
+void freeAll( node *tree )
+{
+    if ( tree != NULL )
+    {
+        freeAll( tree->left );
+        freeAll( tree->right );
+        free( tree );
+    }
+}
+
+// helpers
+
+node *init()
+{
+    return NULL;
+}
+
+void showNode( node *treeNode )
+{
+    if ( treeNode != NULL )
+    {
+        printf("\nCONTEUDO = %i\n", treeNode->content);
+        if ( treeNode->left == NULL )
+        {
+            printf("\n  FILHO A ESQUERDA = NULL\n");
+        }
+        else
+        {
+            printf("\n  FILHO A ESQUERDA = %i\n", treeNode->left->content);
+        }
+
+        if ( treeNode->right == NULL )
+        {
+            printf("\n  FILHO A DIREITA = NULL\n");
+        }
+        else
+        {
+            printf("\n  FILHO A DIREITA = %i\n", treeNode->right->content);
+        }
+    }
+    else
+    {
+        log(1);
+    }
+}
+
+int getHeight ( node *root ) {
+
+    if ( root != NULL )
+    {
+        int leftHeight = getHeight( root->left );
+        int rightHeight = getHeight ( root->right );
+
+        if ( leftHeight < rightHeight )
+        {
+            return rightHeight + 1;
+        }
+        else
+        {
+            return leftHeight + 1;
+        }
+    }
+
+    return -1;
+}
+
+
+void countNodes( node *tree, int *count )
+{
+    if ( tree != NULL )
+    {
+        *count += 1;
+        countNodes( tree->left, count );
+        countNodes( tree->right, count );
+    }
+}
+
+void log( int option )
+{
+    switch ( option ) {
+    case 1:
+    {
+        printf("\n\nEsse no nao existe!\n\n");
+        break;
+    }
+    }
+}
