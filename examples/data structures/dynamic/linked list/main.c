@@ -504,6 +504,9 @@ void ERD( node *tree );
 node *search( node *tree, int value );
 void freeAll( node *tree );
 int getHeight( node *root );
+int removeNode( node *toDestroy, node *dad, int childSide );
+node *getRemoveNode( node *tree, int value );
+node *searchChild( node *root, int value );
 
 // helpers
 node *init();
@@ -563,6 +566,24 @@ int main(void)
         }
         case 3: {
             // remover
+            int value;
+
+            int removed;
+
+            printf("\n====== Remover ======\n");
+            printf("\nQual conteudo do no deseja remover?: \n");
+            scanf("%i", &value);
+
+            removed = getRemoveNode( tree, value );
+
+            if ( removed == 1 )
+            {
+                log(2);
+            }
+            else if ( removed == -1 )
+            {
+                log(3);
+            }
             break;
         }
         case 4: {
@@ -745,6 +766,135 @@ void freeAll( node *tree )
     }
 }
 
+int getHeight ( node *root ) {
+
+    if ( root != NULL )
+    {
+        int leftHeight = getHeight( root->left );
+        int rightHeight = getHeight ( root->right );
+
+        if ( leftHeight < rightHeight )
+        {
+            return rightHeight + 1;
+        }
+        else
+        {
+            return leftHeight + 1;
+        }
+    }
+
+    return -1;
+}
+
+int removeNode( node *toDestroy, node *dad, int childSide )
+{
+    if ( toDestroy != NULL && dad != NULL )
+    {
+
+        if ( toDestroy->left != NULL && toDestroy->right != NULL )
+        {
+            // dois filhos
+        }
+
+        node *child;
+
+        if ( toDestroy->left == NULL && toDestroy->right == NULL )
+        {
+            child = NULL;
+        }
+
+        if ( toDestroy->left != NULL && toDestroy->right == NULL )
+        {
+            child = toDestroy->left;
+        }
+
+        if ( toDestroy->left == NULL && toDestroy->right != NULL )
+        {
+            child = toDestroy->left;
+        }
+
+        if ( childSide == 0 )
+        {
+            dad->left = child;
+        }
+        else if ( childSide == 1 )
+        {
+            dad->right = child;
+        }
+
+        free( toDestroy );
+        return 1;
+    }
+
+    return -1;
+}
+
+node *getRemoveNode( node *tree, int value )
+{
+    node *dad;
+
+    if ( tree->content == value )
+    {
+        // remover a raiz da arvore
+    }
+    else
+    {
+        dad = searchChild( tree, value );
+        if ( dad != NULL )
+        {
+            int removed;
+
+            if ( dad->left->content == value )
+            {
+                removed = removeNode( dad->left, dad, 0);
+            }
+            else if ( dad->right->content == value )
+            {
+                removed = removeNode( dad->right, dad, 1);
+            }
+
+            return removed;
+        }
+    }
+
+    return -1;
+}
+
+node *searchChild( node *root, int value )
+{
+    if ( root != NULL )
+    {
+        if ( root->left != NULL )
+        {
+            if ( root->left->content == value )
+            {
+                return root;
+            }
+        }
+
+        if ( root->right != NULL )
+        {
+            if ( root->right->content == value )
+            {
+                return root;
+            }
+        }
+
+        node *find;
+
+        find = searchChild( root->left, value );
+
+        if ( find == NULL )
+        {
+            find = searchChild( root->right, value );
+        }
+
+        return find;
+    }
+
+    return NULL;
+}
+
 // helpers
 
 node *init()
@@ -781,27 +931,6 @@ void showNode( node *treeNode )
     }
 }
 
-int getHeight ( node *root ) {
-
-    if ( root != NULL )
-    {
-        int leftHeight = getHeight( root->left );
-        int rightHeight = getHeight ( root->right );
-
-        if ( leftHeight < rightHeight )
-        {
-            return rightHeight + 1;
-        }
-        else
-        {
-            return leftHeight + 1;
-        }
-    }
-
-    return -1;
-}
-
-
 void countNodes( node *tree, int *count )
 {
     if ( tree != NULL )
@@ -817,8 +946,19 @@ void log( int option )
     switch ( option ) {
     case 1:
     {
-        printf("\n\nEsse no nao existe!\n\n");
+        printf("\n\nEsse node nao existe!\n\n");
         break;
     }
+    case 2:
+    {
+        printf("\n\nNode removido com sucesso!\n\n");
+        break;
+    }
+    case 3:
+    {
+        printf("\n\nNode nao foi removido!\n\n");
+        break;
+    }
+
     }
 }
